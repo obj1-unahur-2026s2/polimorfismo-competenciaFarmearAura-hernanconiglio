@@ -1,0 +1,71 @@
+import participantes.*
+import desafios.*
+import competencia.*
+
+
+describe "test ejercicio farmear Aura" {
+  test "1. Derek arranca con 0 de aura - puntosQueOtorga: 5" {
+    assert.equals(0,derek.aura())    
+  }
+  test "2. Matilda arranca con 0 de aura - puntosQueOtorga: 5" {
+    assert.equals(0,matilda.aura())    
+  }
+
+  test "3. Jacobim arranca con 0 de aura - puntosQueOtorga: 5" {
+    assert.equals(0,jacobim.aura())    
+  }
+
+  test "4. desafío miradaAlInfinito comienza con 20 espectadores - puntosQueOtorga: 5" {
+    assert.equals(20,miradaAlInfinito.espectadores())    
+  }
+
+  test "5. desafío caminarBajoLaLluvia comienza con 100 espectadores - puntosQueOtorga: 5" {
+    assert.equals(100,caminarBajoLaLluvia.espectadores())    
+  }
+
+  test "6. desafío entradaTriunfal comienza con 50 espectadores - puntosQueOtorga: 5" {
+    assert.equals(50,entradaTriunfal.espectadores())    
+  }
+
+  test "7. desafío miradaAlInfinito nunca es épico - puntosQueOtorga: 5" {
+    assert.notThat(miradaAlInfinito.esEpico(derek))    
+  }
+
+  test "8. desafío caminarBajoLaLluvia siempre es épico - puntosQueOtorga: 5" {
+    assert.that(caminarBajoLaLluvia.esEpico(derek))    
+  }
+
+  test "9. desafío entradaTriunfal no es epico al inicio para ningun participante - puntosQueOtorga: 5" {
+    assert.notThat(entradaTriunfal.esEpico(derek))    
+  }
+
+  test "10. desafío entradaTriunfal será epico para jacobim después que competencia le indica realizar el desafio de farmeo caminarBajoLaLluvia - puntosQueOtorga: 5" {
+    competencia.realizarDesafio(jacobim, caminarBajoLaLluvia)
+    assert.that(entradaTriunfal.esEpico(jacobim))    
+  }
+
+  test "11. Competencia indica a derek farmear aura con el desafío miradaAlInfinito y su aura pasa a ser 100 - puntosQueOtorga: 10" {
+    competencia.realizarDesafio(derek, miradaAlInfinito)
+    assert.equals(100, derek.aura())
+  }
+
+  test "12. Competencia le indica a matilda farmear 2 veces caminarBajoLaLluvia y luego entradaTriunfal entonces su aura pasa a ser 600 - puntosQueOtorga: 10" {
+    competencia.realizarDesafio(matilda, caminarBajoLaLluvia)
+    competencia.realizarDesafio(matilda, caminarBajoLaLluvia)
+    competencia.realizarDesafio(matilda, entradaTriunfal)
+    assert.equals(600,matilda.aura())
+  }
+
+  test "13. swag cambia el mínimo a 50 entonces si competencia le dice a matilda farmee 1 vez caminarBajoLaLluvia y luego entradaTriunfal su aura pasa a ser 400 - puntosQueOtorga: 15" {
+    swag.cambiarMinimoDeAura(50)
+    competencia.realizarDesafio(matilda, caminarBajoLaLluvia)
+    competencia.realizarDesafio(matilda, entradaTriunfal)
+    assert.equals(400,matilda.aura())
+  }
+
+  test "14. Competencia le indica a matilda farmear 1 vez caminarBajoLaLluvia y luego miradaAlInfinito entonces su aura pasa a ser 150 - puntosQueOtorga: 15" {
+    competencia.realizarDesafio(matilda, caminarBajoLaLluvia)
+    competencia.realizarDesafio(matilda, miradaAlInfinito)
+    assert.equals(150,matilda.aura())
+  }
+}
